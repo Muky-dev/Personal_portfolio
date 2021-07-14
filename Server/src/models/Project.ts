@@ -10,12 +10,12 @@ const projectSchema: Schema = new Schema(
             type: String,
             required: true
         },
-        dev_status: {
-            type: Boolean,
-            required: true
-        },
         image_url: {
             type: String,
+            required: true
+        },
+        dev_status: {
+            type: Boolean,
             required: true
         },
     },
