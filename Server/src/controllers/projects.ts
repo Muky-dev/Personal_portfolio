@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { IProject } from '../types/Project';
+import { IProject } from '../types/project';
 import Project from '../models/Project';
 
 const getProjects = async (req: Request, res: Response): Promise<void> => {
@@ -29,4 +29,17 @@ const addProject = async (req: Request, res: Response): Promise<void> => {
     }
 }
 
-export { getProjects, addProject }
+const deleteProject = async (req: Request, res: Response): Promise<void> => {
+    try {
+        const deletedProject: IProject | null = await Project.findByIdAndDelete(req.params.id);
+
+        res.status(200).json({
+            message: "Project deleted",
+            deletedProject: deletedProject
+        });
+    } catch(error) {
+        throw Error(error);
+    }
+}
+
+export { getProjects, addProject, deleteProject }
