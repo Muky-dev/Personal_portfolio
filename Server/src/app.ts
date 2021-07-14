@@ -4,7 +4,7 @@ import cors from 'cors';
 
 const app: Express = express();
 
-const PORT: string | number = process.env.PORT || 3000;
+const PORT: string | number = process.env.PORT || 4000;
 
 app.use(cors());
 app.use(express.urlencoded({ extended: false, limit: '10mb' }));
