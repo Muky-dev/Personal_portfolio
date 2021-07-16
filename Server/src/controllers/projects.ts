@@ -14,14 +14,16 @@ const getProjects = async (req: Request, res: Response): Promise<void> => {
 const addProject = async (req: Request, res: Response): Promise<void> => {
     try {
         const body = req.body
-        const image = req.file
+        //const image = req.file
 
-        const newProject: IProject = new Project ({
+        const project: IProject = new Project ({
             name: body.name,
             url: body.projecturl,
-            image_url: image?.path,
+            image_url: body.imageurl,
             dev_status: body.status
         });
+
+        const newProject: IProject = await project.save();
 
         res.status(201).json({
             message: "Project created",
