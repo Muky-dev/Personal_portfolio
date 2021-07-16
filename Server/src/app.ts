@@ -1,6 +1,7 @@
 import express, { Express } from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
+import projectsRouter from './routes/projects';
 
 const app: Express = express();
 
@@ -9,6 +10,7 @@ const PORT: string | number = process.env.PORT || 4000;
 app.use(cors());
 app.use(express.urlencoded({ extended: false, limit: '10mb' }));
 app.use(express.json());
+app.use('/', projectsRouter);
 
 const uri: string = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.6smfd.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`
 
@@ -25,7 +27,6 @@ db.on('error', error => console.log(error));
 db.once('open', () => {
     console.log("Database connected");
 });
-
 
 app.listen(PORT, () => {
     console.log(`Server running on localhost:${PORT}`);
