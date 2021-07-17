@@ -5,7 +5,7 @@ const baseUrl: string = 'http://localhost:4000';
 export const getProjects = async (): Promise<AxiosResponse<ApiDataType>> => {
     try {
         const projects: AxiosResponse<ApiDataType> = await axios.get(
-            baseUrl + '/getProjects'
+            baseUrl + '/projects'
         );
         return projects
     } catch (error) {
