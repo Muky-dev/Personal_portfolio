@@ -14,12 +14,12 @@ const getProjects = async (req: Request, res: Response): Promise<void> => {
 const addProject = async (req: Request, res: Response): Promise<void> => {
     try {
         const body = req.body
-        //const image = req.file
+        const image = req.file
 
         const project: IProject = new Project ({
             name: body.name,
             url: body.projecturl,
-            image_url: body.imageurl,
+            image_url: image?.path,
             dev_status: body.status
         });
 
