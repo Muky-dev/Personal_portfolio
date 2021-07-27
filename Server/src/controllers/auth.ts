@@ -43,7 +43,7 @@ const login = async (req: Request, res: Response): Promise<void> => {
             }
             const secret: string = process.env.JWT_SECRET
             const { _id } = user
-            const token = jwt.sign({ id: _id }, secret, { expiresIn: 300 });
+            const token = jwt.sign({ id: _id }, secret, { expiresIn: '1d' });
             res.status(200).json({
                 auth: true,
                 token: token
