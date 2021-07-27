@@ -7,6 +7,7 @@
     "build": "tsc",
     "start": "concurrently \"tsc -w\" \"nodemon build/js/app.js\""
   },
+  "types": "./src/enviroment.d.ts",
   "dependencies": {
     "bcrypt": "^5.0.1",
     "cors": "^2.8.5",
