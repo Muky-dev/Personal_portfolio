@@ -1,3 +1,4 @@
+import { IProject } from '../types/project';
 import { model, Schema } from 'mongoose';
 
 const projectSchema: Schema = new Schema(
@@ -22,4 +23,4 @@ const projectSchema: Schema = new Schema(
     { timestamps: true}
 );
 
-export default model("Project", projectSchema);
+export default model<IProject>("Project", projectSchema);
