@@ -12,6 +12,6 @@ declare namespace Express {
         user: User
     }
     export interface User {
-        id: string
+        id?: string
     }
 }
