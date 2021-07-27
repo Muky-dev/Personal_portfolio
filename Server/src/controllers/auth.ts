@@ -12,7 +12,7 @@ const register = async (req: Request, res: Response): Promise<void> => {
             email: email,
             username: username,
             password: hashedPass,
-            isAdmin: true
+            isAdmin: false
         });
 
         const newUser: IUser = await userModel.save();
