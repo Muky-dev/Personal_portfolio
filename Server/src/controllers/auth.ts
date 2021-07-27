@@ -28,4 +28,37 @@ const register = async (req: Request, res: Response): Promise<void> => {
     }
 }
 
-export { register }
+
+const login = async (req: Request, res: Response): Promise<void> => {
+    try {
+        const { email, password } = req.body;
+        const user: IUser | null = await User.findOne({ email: email });
+        if (typeof user !== 'undefined' && user) {
+            const hashedPass = user.password;
+            const comparePass = await bcrypt.compare(password, hashedPass);
+            if (!comparePass) {
+                res.status(400).json({
+                    message: "Wrong password"
+                });
+            }
+            const secret: string = process.env.JWT_SECRET
+            const { _id } = user
+            const token = jwt.sign({ id: _id }, secret, { expiresIn: 300 });
+            res.status(200).json({
+                auth: true,
+                token: token
+            });
+        }
+        else if (!user) {
+            res.status(400).json({
+                message: "User don't exists"
+            });
+        }
+    } catch {
+        res.status(500).json({
+            message: "Something went wrong"
+        });
+    }
+}
+
+export { register, login }
