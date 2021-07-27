@@ -6,20 +6,21 @@ const userSchema: Schema = new Schema(
         username: {
             type: String,
             lowercase: true,
-            required: true,
+            required: 'A username is required',
             unique: true
         },
         email: {
             type: String,
-            required: true
+            required: 'An email address is required',
+            match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please fill a valid email address']
         },
         password: {
             type: String,
-            required: true
+            required: 'Please provide a password'
         },
         isAdmin: {
             type: Boolean,
-            required: true
+            default: false
         }
     }
 );
