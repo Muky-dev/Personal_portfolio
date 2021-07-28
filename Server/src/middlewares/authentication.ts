@@ -14,9 +14,9 @@ export const validateToken = (req: Request, res: Response, next: NextFunction) =
                 res.status(500).json({ auth: false, message: 'Failed to authenticate token' });
             }
             if (decoded) {
-                req.user = {}
+                req.user = {};
                 req.user.id = decoded.id;
-                next()
+                next();
             }
         });
     }
