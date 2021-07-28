@@ -27,6 +27,10 @@ const userSchema: Schema = new Schema(
             type: String,
             default: ""
         },
+        verified: {
+            type: Boolean,
+            default: false
+        },
         password: {
             type: String,
             required: 'Please provide a password'
