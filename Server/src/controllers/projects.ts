@@ -1,6 +1,8 @@
 import { Request, Response } from 'express';
 import { IProject } from '../types/project';
+import { IUser } from '../types/user';
 import Project from '../models/Project';
+import User from '../models/User';
 
 const getProjects = async (req: Request, res: Response): Promise<void> => {
     try {
@@ -13,23 +15,29 @@ const getProjects = async (req: Request, res: Response): Promise<void> => {
 
 const addProject = async (req: Request, res: Response): Promise<void> => {
     try {
-        const body = req.body
-        const image = req.file
+        const {
+            body,
+            file,
+            user
+        } = req
 
-        const project: IProject = new Project ({
+
+        const project: IProject = new Project({
             name: body.name,
+            author: user.id,
             url: body.projecturl,
-            image_url: image?.path,
+            image_url: file?.path,
             dev_status: body.status
         });
 
         const newProject: IProject = await project.save();
+        const Author: IUser | null = await User.findByIdAndUpdate(user.id, { $push: { projects: project._id } });
 
         res.status(201).json({
             message: "Project created",
             project: newProject
         });
-    } catch(error) {
+    } catch (error) {
         throw Error(error)
     }
 }
@@ -39,16 +47,16 @@ const updateProject = async (req: Request, res: Response): Promise<void> => {
         const {
             params: { id },
             body,
+            user,
         } = req
 
-        const updatedProject:IProject | null = await Project.findByIdAndUpdate({ _id: id }, body);
-        
+        const updatedProject: IProject = await Project.findOneAndUpdate({ _id: id, author: user.id }, body, { new: true }).orFail();
         res.status(200).json({
             message: "Project updated",
-            project: updateProject
+            project: updatedProject
         });
     } catch (error) {
-        throw Error(error);
+        res.status(500).json({ error: error });
     }
 }
 
@@ -60,7 +68,7 @@ const deleteProject = async (req: Request, res: Response): Promise<void> => {
             message: "Project deleted",
             project: deletedProject
         });
-    } catch(error) {
+    } catch (error) {
         throw Error(error);
     }
 }
