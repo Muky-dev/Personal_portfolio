@@ -7,5 +7,6 @@ export interface IUser extends Document {
     email: string
     bio: string
     projects: IProject[]
+    verified: boolean
     password: string
 }
