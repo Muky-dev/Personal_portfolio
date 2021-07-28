@@ -10,6 +10,7 @@ const projectSchema: Schema = new Schema(
         author: {
             type: Schema.Types.ObjectId,
             required: 'An author is needed',
+            immutable: true,
             ref: 'User'
         },
         url: {
