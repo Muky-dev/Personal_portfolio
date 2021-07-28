@@ -7,6 +7,11 @@ const projectSchema: Schema = new Schema(
             type: String,
             required: true
         },
+        author: {
+            type: Schema.Types.ObjectId,
+            required: 'An author is needed',
+            ref: 'User'
+        },
         url: {
             type: String,
             required: true
