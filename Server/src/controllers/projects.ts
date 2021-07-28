@@ -62,14 +62,19 @@ const updateProject = async (req: Request, res: Response): Promise<void> => {
 
 const deleteProject = async (req: Request, res: Response): Promise<void> => {
     try {
-        const deletedProject: IProject | null = await Project.findByIdAndDelete(req.params.id);
+        const {
+            params: { id },
+            user
+        } = req
+
+        const deletedProject: IProject = await Project.findOneAndDelete({ _id: id, author: user.id }).orFail();
 
         res.status(200).json({
             message: "Project deleted",
             project: deletedProject
         });
     } catch (error) {
-        throw Error(error);
+        res.status(500).json(error);
     }
 }
 
