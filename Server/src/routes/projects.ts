@@ -7,7 +7,7 @@ const router: Router = Router();
 
 router.get('/projects', getProjects);
 router.post('/add-project', validateToken, uploads.single('coverImage'), addProject);
-router.put('/edit-project/:id', validateToken, updateProject);
+router.put('/edit-project/:id', validateToken, uploads.single('coverImage'), updateProject);
 router.delete('/delete-project/:id', validateToken, deleteProject);
 
 export default router
