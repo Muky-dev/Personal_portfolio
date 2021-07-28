@@ -30,12 +30,8 @@ const userSchema: Schema = new Schema(
         password: {
             type: String,
             required: 'Please provide a password'
-        },
-        isAdmin: {
-            type: Boolean,
-            default: false
         }
-    }
+    }, { timestamps: true }
 );
 
 export default model<IUser>('User', userSchema);
