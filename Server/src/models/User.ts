@@ -19,9 +19,9 @@ const userSchema: Schema = new Schema(
             unique: true,
             match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please fill a valid email address']
         },
-        projects: [{ 
-            type: Schema.Types.ObjectId, 
-            ref: 'Project' 
+        projects: [{
+            type: Schema.Types.ObjectId,
+            ref: 'Project'
         }],
         bio: {
             type: String,
