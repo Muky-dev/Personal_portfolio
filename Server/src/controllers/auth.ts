@@ -6,13 +6,14 @@ import bcrypt from 'bcrypt';
 
 const register = async (req: Request, res: Response): Promise<void> => {
     try {
-        const { email, username, password } = req.body
+        const { email, username, nickname, bio, password } = req.body
         const hashedPass: string = await bcrypt.hash(password, 10)
         const userModel: IUser = new User({
             email: email,
+            nickname: nickname,
+            bio: bio,
             username: username,
             password: hashedPass,
-            isAdmin: false
         });
 
         const newUser: IUser = await userModel.save();
@@ -21,9 +22,10 @@ const register = async (req: Request, res: Response): Promise<void> => {
             message: "Successfully created user"
         });
 
-    } catch {
+    } catch (error) {
         res.status(500).json({
-            message: "User not created"
+            message: "User not created",
+            error: error
         });
     }
 }
@@ -61,4 +63,8 @@ const login = async (req: Request, res: Response): Promise<void> => {
     }
 }
 
-export { register, login }
+const logout = async (req: Request, res: Response): Promise<void> => {
+    res.status(200).json({ auth: false, token: null });
+}
+
+export { register, login, logout }
