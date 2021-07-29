@@ -3,6 +3,7 @@ import mongoose from 'mongoose';
 import cors from 'cors';
 import projectsRouter from './routes/projects';
 import authRouter from './routes/auth';
+import userRouter from './routes/user';
 
 const app: Express = express();
 
@@ -14,6 +15,7 @@ app.use(express.json());
 
 app.use('/', projectsRouter);
 app.use('/', authRouter);
+app.use('/user', userRouter);
 
 const uri: string = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.6smfd.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`
 
