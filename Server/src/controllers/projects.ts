@@ -22,23 +22,22 @@ const addProject = async (req: Request, res: Response): Promise<void> => {
         } = req
 
 
-        const project: IProject = new Project({
+        const newProject: IProject = await new Project({
             name: body.name,
             author: user.id,
             url: body.projecturl,
             image_url: file?.path,
             dev_status: body.status
-        });
+        }).save();
 
-        const newProject: IProject = await project.save();
-        const Author: IUser | null = await User.findByIdAndUpdate(user.id, { $push: { projects: project._id } });
+        const Author: IUser | null = await User.findByIdAndUpdate(user.id, { $push: { projects: newProject._id } });
 
         res.status(201).json({
             message: "Project created",
             project: newProject
         });
     } catch (error) {
-        throw Error(error)
+        res.status(500).json({ error: error });
     }
 }
 
