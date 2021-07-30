@@ -9,7 +9,7 @@ export const validateToken = (req: Request, res: Response, next: NextFunction) =
     }
 
     if (typeof token === 'string') {
-        jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+        jwt.verify(token, process.env.JWT_AUTH_SECRET, (err, decoded) => {
             if (err) {
                 res.status(500).json({ auth: false, message: 'Failed to authenticate token' });
             }
