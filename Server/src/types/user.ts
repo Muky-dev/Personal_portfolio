@@ -10,3 +10,7 @@ export interface IUser extends Document {
     verified: boolean
     password: string
 }
+
+export interface IDecoded {
+    id: string
+}
