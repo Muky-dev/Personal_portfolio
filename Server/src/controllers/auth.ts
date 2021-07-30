@@ -43,7 +43,7 @@ const login = async (req: Request, res: Response): Promise<void> => {
                     message: "Wrong password"
                 });
             }
-            const secret: string = process.env.JWT_SECRET
+            const secret: string = process.env.JWT_AUTH_SECRET
             const { _id } = user
             const token = jwt.sign({ id: _id }, secret, { expiresIn: '1d' });
             res.status(200).json({
